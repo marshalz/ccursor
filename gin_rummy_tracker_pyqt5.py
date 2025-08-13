@@ -93,6 +93,8 @@ class GinRummyTracker(QMainWindow):
         self.zayaka_entry.setValidator(QIntValidator(0, 999))
         self.zayaka_entry.setFont(QFont("Arial", 14, QFont.Bold))
         self.zayaka_entry.textChanged.connect(self.on_zayaka_score_changed)
+        # Pressing Enter while focused on this field will add the score
+        self.zayaka_entry.returnPressed.connect(self.add_scores)
         zayaka_layout.addWidget(zayaka_label)
         zayaka_layout.addWidget(self.zayaka_entry)
         input_layout.addLayout(zayaka_layout)
@@ -106,6 +108,8 @@ class GinRummyTracker(QMainWindow):
         self.brian_entry.setValidator(QIntValidator(0, 999))
         self.brian_entry.setFont(QFont("Arial", 14, QFont.Bold))
         self.brian_entry.textChanged.connect(self.on_brian_score_changed)
+        # Pressing Enter while focused on this field will add the score
+        self.brian_entry.returnPressed.connect(self.add_scores)
         brian_layout.addWidget(brian_label)
         brian_layout.addWidget(self.brian_entry)
         input_layout.addLayout(brian_layout)
@@ -118,6 +122,9 @@ class GinRummyTracker(QMainWindow):
         self.add_button = QPushButton("Add Scores")
         self.add_button.clicked.connect(self.add_scores)
         self.add_button.setStyleSheet("QPushButton { padding: 10px; font-size: 12px; }")
+        # Make Enter trigger this button by default
+        self.add_button.setAutoDefault(True)
+        self.add_button.setDefault(True)
         button_layout.addWidget(self.add_button)
         
         self.clear_button = QPushButton("Clear Fields")
